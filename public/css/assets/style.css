@@ -1,0 +1,33 @@
+.form-inlines {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-left: 10rem;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .btn-search-adjust {
+        margin-left: 8px;
+    }
+    .form-inlines {
+        margin: 0;
+    }
+  } 
+
+  /* LOGIN-REG-BOX */
+  .log-reg-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      transform: translate(0px, 10%);
+  }
+
+  .top-form-box {
+      padding: 0 10px;
+  }

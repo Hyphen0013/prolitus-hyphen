@@ -1,16 +1,52 @@
-let express = require('express');
-let app = express();
+const express = require('express');
+const path = require('path');
+const expressLayouts = require('express-ejs-layouts');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const expressSession = require('express-session');
+const flash = require('connect-flash');
 
 
+const app = express();
 
-app.get('/', (req, res) => {
-    res.send(JSON.stringify({ "Name: " : "Hyphen"}));
-});
+// DB Configration
+const database = require('./config/keys');
 
-let PORT = process.env.PORT || 5000;
+// Connection to MongoDB Compass
+mongoose.connect(
+        database.mongoURI,
+        { useNewUrlParser: true },
+        (err) => {
+            if (err) throw err;
+            else console.log('Connected to MongoDB...')
+        } 
+    )
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}`);
+
+// Static public folder
+app.use(express.static('./public'));
+
+// EJS Engine
+app.use(expressLayouts);
+app.set('view engine', 'ejs');
+
+
+// Express body parser
+app.use(express.urlencoded({ extended: true }));
+
+
+// Global Variables
+/* app.use(function(req, res, next) {
+    res.locals.error = req.flash('error');
+    next();
+}); */
+
+// Routes to pages
+app.use('/', require('./routes/pages/index.js'));
+app.use('/', require('./routes/pages/users'));
+
+app.listen(database.PORT, () => {
+    console.log(`Server is running on port: ${database.PORT}`);
 });
 
 

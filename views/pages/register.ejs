@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row log-reg-box">
+        <div class="card border-info col-sm" style="max-width: 18rem;">
+            <div class="card-header"><a href="/login" class="top-form-box">Login</a><a class="top-form-box" href="/">Home</a></div>
+            <div class="card-body text-info">
+                <form action="/register" method="POST">
+                <div class="form-group">
+                        <label for="name">Enter Name</label>
+                        <input type="name" name="name" value="" class="form-control" id="name" aria-describedby="emailHelp"
+                            placeholder="Enter email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" name="email" value="" class="form-control" id="email" aria-describedby="emailHelp"
+                            placeholder="hyphen.call@prolitus.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" value="" class="form-control" id="password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Confirm Password</label>
+                        <input type="password2" name="password2" value="" class="form-control" id="password2" placeholder="Confirm Password">
+                    </div>
+
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<% include ../include/script %>
