@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
-const expressLayouts = require('express-ejs-layouts');
+// const expressLayouts = require('express-ejs-layouts');
+const partials = require('express-partials');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const expressSession = require('express-session');
@@ -12,6 +13,9 @@ const app = express();
 // DB Configration
 const database = require('./config/keys');
 
+// Passport Config
+require('./config/passport');
+
 // Connection to MongoDB Compass
 mongoose.connect(
         database.mongoURI,
@@ -22,24 +26,38 @@ mongoose.connect(
         } 
     )
 
-
 // Static public folder
 app.use(express.static('./public'));
 
 // EJS Engine
-app.use(expressLayouts);
+// app.use(expressLayouts);
+app.use(partials());
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
 
+// Express session
+app.use(
+    expressSession({
+        secret: 'hyphen.call', // create sid in http req. have'nt cookie
+        resave: true, // save sid for further req.
+        saveUninitialized: true // depend on thin property it store the session store
+    })
+)
+
+// Connect flash
+app.use(flash());
 
 // Global Variables
-/* app.use(function(req, res, next) {
+app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     next();
-}); */
+  });
 
 // Routes to pages
 app.use('/', require('./routes/pages/index.js'));
