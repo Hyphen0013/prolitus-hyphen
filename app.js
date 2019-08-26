@@ -1,11 +1,11 @@
 const express = require('express');
 const path = require('path');
 // const expressLayouts = require('express-ejs-layouts');
-const partials = require('express-partials');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
+const ejs = require('ejs');
 
 
 const app = express();
@@ -14,7 +14,7 @@ const app = express();
 const database = require('./config/keys');
 
 // Passport Config
-require('./config/passport');
+require('./config/passport')(passport);
 
 // Connection to MongoDB Compass
 mongoose.connect(
@@ -31,7 +31,6 @@ app.use(express.static('./public'));
 
 // EJS Engine
 // app.use(expressLayouts);
-app.use(partials());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -48,6 +47,10 @@ app.use(
     })
 )
 
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Connect flash
 app.use(flash());
 
@@ -61,7 +64,7 @@ app.use(function(req, res, next) {
 
 // Routes to pages
 app.use('/', require('./routes/pages/index.js'));
-app.use('/', require('./routes/pages/users'));
+app.use('/users', require('./routes/pages/users'));
 
 app.listen(database.PORT, () => {
     console.log(`Server is running on port: ${database.PORT}`);

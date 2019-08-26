@@ -1,33 +1,34 @@
+<% include ../index.ejs %>
 
 <div class="message-box">
-        <% include ../partials/messages %>
+        <% include ../include/messages %>
 </div>
 
 <div class="container">
     <div class="row log-reg-box">
         <div class="card border-info col-sm" style="max-width: 18rem;">
-            <div class="card-header"><a href="/login" class="top-form-box">Login</a><a class="top-form-box" href="/">Home</a></div>
+            <div class="card-header"><a href="/users/login" class="top-form-box">Login</a><a class="top-form-box" href="/">Home</a></div>
             <div class="card-body text-info">
-                <form action="/register" method="POST">
+                <form action="/users/register" method="POST">
                 <div class="form-group">
                         <label for="name">Enter Name</label>
-                        <input type="name" name="name" value="" class="form-control" id="name" aria-describedby="emailHelp"
+                        <input type="name" name="name" value="<%= typeof name != 'undefined' ? name : '' %>" class="form-control" id="name" aria-describedby="emailHelp"
                             placeholder="Enter email">
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" name="email" value="" class="form-control" id="email" aria-describedby="emailHelp"
+                        <input type="email" name="email" value="<%= typeof email != 'undefined' ? email : '' %>" class="form-control" id="email" aria-describedby="emailHelp"
                             placeholder="hyphen.call@prolitus.com">
                     </div>
 
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" name="password" value="" class="form-control" id="password" placeholder="Password">
+                        <input type="password" name="password" value="<%= typeof password != 'undefined' ? password : '' %>" class="form-control" id="password" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label for="password2">Confirm Password</label>
-                        <input type="password" name="password2" value="" class="form-control" id="password2" placeholder="Confirm Password">
+                        <input type="password" name="password2" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" class="form-control" id="password2" placeholder="Confirm Password">
                     </div>
 
                     
@@ -40,5 +41,3 @@
 </div>
 
 
-
-<% include ../include/script %>
